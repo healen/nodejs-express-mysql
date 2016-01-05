@@ -15,7 +15,9 @@ nodejs+express+mysql同步异步增删改查 V1.0
 
 ## 导入数据库
 
-    1. [nodejs+express+mysql/data.sql]() 导入到mysql数据库中，详情查看 http://jingyan.baidu.com/article/4e5b3e19505e9091901e24ba.html
+    1. [nodejs+express+mysql/data.sql]() 导入到mysql数据库中，
+
+    详情查看 http://jingyan.baidu.com/article/4e5b3e19505e9091901e24ba.html
 
 ## 运行程序
 
