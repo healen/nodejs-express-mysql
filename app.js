@@ -84,7 +84,7 @@ app.get("/list",function(req,res){
 				if(!err){
 					connection.query("SELECT * from user_me",function(err,result){
 						if(!err){
-							console.log(result.length);
+							
 							for(var key in result){
 								str+="<tr><td>"+result[key].frist_name+""+result[key].last_name+"</td><td class='typeinfo text-right'>"+result[key].up_time.Format("yyyy-MM-dd hh:mm:ss")
 								str+="</td><td class='text-right'>"
@@ -131,7 +131,7 @@ app.post("/deleteuser",function(req,res){
 				connection.query("DELETE FROM user_me WHERE ?",obj,function(err,result){
 						connection.query("SELECT * from user_me",function(err,result){
 							if(!err){
-								console.log(result.length);
+								
 								for(var key in result){
 									str+="<tr><td>"+result[key].frist_name+""+result[key].last_name+"</td><td class='typeinfo text-right'>"+result[key].up_time.Format("yyyy-MM-dd hh:mm:ss")
 									str+="</td><td class='text-right'>"
@@ -178,13 +178,13 @@ app.get("/detail/:id(\\d+)",function(req,res){
 							connection.release();
 							var engine=templateEngine(strdata,{
 								frist_name:result[0].frist_name,
-								last_name:result[0].frist_name,
+								last_name:result[0].last_name,
 								job:result[0].job,
 								about_me:result[0].about_me,
 								up_time:result[0].up_time.Format("yyyy-MM-dd hh:mm:ss")
 							})
 
-							console.log(engine);
+							
 							res.send(engine)
 
 
@@ -221,7 +221,7 @@ app.get("/edit/:id(\\d+)",function(req,res){
 							connection.release();
 							var engine=templateEngine(strdata,{
 								frist_name:result[0].frist_name,
-								last_name:result[0].frist_name,
+								last_name:result[0].last_name,
 								job:result[0].job,
 								about_me:result[0].about_me,
 								user_id:result[0].user_id
