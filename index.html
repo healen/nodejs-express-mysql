@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		html,body{
+			height: 100%;
+		}
+		.mengceng{
+			height: 100%;
+			width: 100%;
+			top: 0px;
+			left: 0px;
+			background: rgba(0,0,0,0.5);
+			position: fixed;
+			display: none;
+
+		}
+
+		.result{
+			width: 400px;
+			height: 40px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -20px;
+			margin-left:-200px;
+			line-height: 40px;
+			text-align: center;
+
+		}
+	</style>
+</head>
+<body>
+
+
+
+
+	
+
+
+	<div class="container-fluid">
+			<h2 class="text-center"> 个人信息录入 </h2>
+			<hr>
+			<form class="form-horizontal">
+				<div class="form-group">
+				    <label for="fristname" class="col-sm-2 control-label">姓氏：</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" id="frist_name" placeholder="请输入姓氏">
+				    </div>
+				</div>
+				<div class="form-group">
+				    <label for="lastname" class="col-sm-2 control-label">名字：</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" id="last_name" placeholder="请输入名字">
+				    </div>
+				</div>
+
+				<div class="form-group">
+				    <label for="job" class="col-sm-2 control-label">职业：</label>
+				    <div class="col-sm-10">
+				    	<input type="text" class="form-control" id="job" placeholder="请输入职业">
+				    </div>
+				</div>
+
+				<div class="form-group">
+				    <label for="about_me" class="col-sm-2 control-label">自我介绍</label>
+				    <div class="col-sm-10">
+				    	<textarea class="form-control" id="about_me" placeholder="自我介绍"></textarea>
+				    </div>
+				</div>
+				  
+				<div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				      	<button type="button" class="btn btn-primary" onclick="sendUser()">添加</button>
+
+				      	<a href="/list">查看</a>
+				    </div>
+				</div>
+			</form>
+	</div>
+
+	<div class="mengceng" id="mengceng">
+		<div class="result bg-primary" id="result">11</div>
+	</div>
+
+
+
+	<script type="text/javascript">
+		var createXMLHttpRequest=function(){
+			if(window.ActiveXObject){
+				return new ActiveXObject("Microsoft.XMLHTTP")
+			}else{
+				return new XMLHttpRequest();
+			}
+		}
+
+
+		
+
+		function sendUser(){
+			xhr=createXMLHttpRequest();
+			var mengceng=document.getElementById('mengceng');
+			var result=document.getElementById('result');
+			var obj={
+				frist_name:document.getElementById('frist_name').value,
+				last_name:document.getElementById('last_name').value,
+				job:document.getElementById('job').value,
+				about_me:document.getElementById('about_me').value
+			}
+			
+			xhr.onreadystatechange=function(){
+				function hidealert(){
+					setTimeout(function(){
+						mengceng.style.display="none";
+						result.innerHTML="";
+					},1000)
+				}
+				if(xhr.readyState==4 && xhr.status==200){
+					mengceng.style.display="block";
+					result.innerHTML=xhr.responseText;
+					hidealert()
+
+				}else{
+					mengceng.style.display="block";
+					result.innerHTML="请求错误";
+					hidealert()
+				}
+			}
+			xhr.open("put","app5",true)
+			console.log(obj)
+			xhr.send(JSON.stringify(obj));
+		}
+
+	</script>
+
+
+	
+</body>
+</html>

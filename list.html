@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		html,body{
+			height: 100%;
+		}
+		.mengceng{
+			height: 100%;
+			width: 100%;
+			top: 0px;
+			left: 0px;
+			background: rgba(0,0,0,0.5);
+			position: fixed;
+			display: none;
+
+		}
+
+		.result{
+			width: 400px;
+			height: 40px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -20px;
+			margin-left:-200px;
+			line-height: 40px;
+			text-align: center;
+
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+			<h2 class="text-center"> 个人信息列表 </h2>
+			<table class="table">
+		      <tbody id="listResult">
+		        {{listbody}}
+		      </tbody>
+		    </table>
+	</div>
+
+
+	<div class="form-group">
+	    <div class="text-center">
+	      	<a href="/" class="btn btn-primary">继续添加</a>
+	    </div>
+	</div>
+	<div class="mengceng" id="mengceng">
+		<div class="result bg-primary" id="result">11</div>
+	</div>
+	<script type="text/javascript">
+		function createXMLHttpRequest(){
+			if(window.ActiveXObject){
+	
+				return new ActiveXObject("Microsoft.XMLHTTP");
+			}else{
+				return new XMLHttpRequest();
+			}
+		}
+
+
+		function deleteUser(id){
+			function disp_confirm(){
+				var r=confirm("确认要删除词条数据吗")
+				if (r==true){
+					var xhr = createXMLHttpRequest();
+					var mengceng=document.getElementById('mengceng');
+					var result=document.getElementById('result');
+					var listResult=document.getElementById('listResult')
+					function hidealert(){
+						setTimeout(function(){
+							mengceng.style.display="none";
+							result.innerHTML="";
+						},1000)
+					}
+					obj={
+						user_id:id
+					}
+					xhr.onreadystatechange=function(){
+						if(xhr.readyState==4 && xhr.status==200){
+							// mengceng.style.display="block";
+							listResult.innerHTML=xhr.responseText;
+						}
+					}
+					xhr.open("post","deleteuser",true);
+					xhr.send(JSON.stringify(obj));  
+				}
+				else{
+					return 
+				}
+			}
+			disp_confirm();
+		}
+	</script>
+</body>
+</html>
